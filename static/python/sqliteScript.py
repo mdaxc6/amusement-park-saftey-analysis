@@ -3,9 +3,8 @@ from sqlalchemy import create_engine
 
 # Declare Variables
 # ----------------------------------
-volcanoCsv = "../Resources/volcano_data.csv"
+volcanoCsv = "../Resources/raw/volcano_data.csv"
 table_name = "volcano_data"
-
 
 # Create Database Connection
 # ----------------------------------
