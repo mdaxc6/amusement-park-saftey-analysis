@@ -10,7 +10,7 @@ from flask import Flask, jsonify
 #################################################
 # Database Setup
 #################################################
-engine = create_engine("sqlite:///../../Resources/earthquakes.sqlite")
+engine = create_engine("sqlite:///Resources/earthquakes.sqlite")
 
 # reflect an existing database into a new model
 Base = automap_base()
