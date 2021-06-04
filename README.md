@@ -1,4 +1,6 @@
-# databootcamp_project_2
+# Earthquake and Volcanoes (Project 2)
+
+![Tremors](https://media.giphy.com/media/LT18pjWNvaU3Uwuav6/giphy.gif)
 
 Project Proposal
 -----------------------
