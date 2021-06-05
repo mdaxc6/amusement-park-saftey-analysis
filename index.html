@@ -13,25 +13,27 @@
         <div class="container-fluid">
             <div class="navbar-header">
             <a class="navbar-brand" href="index.html"> Amusement Park Ride Safety
-                <img src="Images/earthquakes.jpeg" style= "width:100%;">
             </a>
             </div>
         </div>
         </nav>
         <div class="hero text-center">
-        <h1>Amusement Park Ride Interactive Analysis</h1>
+        <h1 style="font-size:140px;font-weight:bold;color:rgba(236, 127, 25, 0.7);"> Amusement Park Ride Interactive Analysis
+        </h1>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary btn-lg">Interactive U.S. Map</button>
+            <button type="button" class="btn btn-primary btn-lg">Interactive Graphs</button>
         </div>
         <div class="container">
         </div>  
         <div class="row margin-top-50">
         </div>
         <footer class="footer">
-        <span class="bottom">Amusement Park Ride Safety</span>
+        <span class="bottom" style="font-size:20px;font-weight:bold;color:rgba(248, 179, 52, 0.7);">
+            Mike Absher, Jordan Wright, & Nina Paljakka-Cargo
+        </span>
         </footer>
-    </div>
-    <div>
-        <button type="button" class="btn btn-primary btn-lg">Interactive U.S. Map</button>
-        <button type="button" class="btn btn-primary btn-lg">Interactive Graphs</button>
     </div>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
