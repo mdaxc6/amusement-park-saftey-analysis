@@ -11,7 +11,7 @@ from flask_cors import CORS
 #################################################
 # Database Setup
 #################################################
-engine = create_engine("sqlite:///Resources/earthquakes.sqlite")
+engine = create_engine("sqlite:///Resources/park_accidents.sqlite")
 
 # reflect an existing database into a new model
 Base = automap_base()
@@ -19,7 +19,7 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 # Save reference to the table
-Earthquakes = Base.classes.earthquake_data
+Accidents = Base.classes.accident_data
 
 #################################################
 # Flask Setup
@@ -36,31 +36,42 @@ def index():
     """List all available api routes."""
     return (
         f"Available Routes:<br/>"
-        f"<a href='/api/v1.0/earthquakes'>Earthquakes</a><br/>"
+        f"<a href='/api/v1.0/all_accidents'>All Accidents</a><br/>"
     )
 
 
-@app.route("/api/v1.0/earthquakes")
-def earthquakes():
+@app.route("/api/v1.0/all_accidents")
+def all_accidents():
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
-    results = session.query(Earthquakes)
+    results = session.query(Accidents)
 
     session.close()
 
-    earthquakesList = []
-    for earthquake in results:
-        earthquake_dict = {}
-        earthquake_dict["location"] = {"lat":earthquake.Latitude, "lon": earthquake.Longitude }
-        earthquake_dict["date"] = earthquake.Date
-        earthquake_dict["depth"] = earthquake.Depth
-        earthquake_dict["mag"] = earthquake.Magnitude
-        earthquake_dict["source"] = earthquake.Source
-        earthquake_dict["id"] = earthquake.ID
-        earthquakesList.append(earthquake_dict)
+    accidentList = []
+    for accident in results:
+        accident_dict = {}
+        accident_dict["date"] = accident.acc_date
+        accident_dict["state"] = accident.acc_state
+        accident_dict["bus_type"] = accident.bus_type
+        accident_dict["device_category"] = accident.device_category
+        accident_dict["industry_sector"] = accident.industry_sector
+        accident_dict["device_type"] = accident.device_type
+        accident_dict["tradename_or_generic"] = accident.tradename_or_generic
+        accident_dict["num_injured"] = accident.num_injured
+        accident_dict["acc_desc"] = accident.acc_desc
+        accident_dict["injury_desc"] = accident.injury_desc
+        accident_dict["category"] = accident.category
+        if(accident.acc_city):
+            accident_dict["acc_city"] = accident.acc_city
+        if(accident.manufacturer):
+            accident_dict["manufacturer"] = accident.manufacturer
+        accident_dict["mech_failure"] = True if accident.mechanical else False
+        accident_dict["operator_error"] = True if accident.op_error else False
+        accidentList.append(accident_dict)
 
-    wrapper = {"earthquakes": earthquakesList }
+    wrapper = {"accidents": accidentList }
     return jsonify(wrapper)
 
 

@@ -3,18 +3,18 @@ from sqlalchemy import create_engine
 
 # Declare Variables
 # ----------------------------------
-earthquake_csv = "../../Resources/raw/earthquake-database.csv"
-table_name = "earthquake_data"
+accidents_csv = "../../Resources/raw/Saferparks-dataset-legacy-v2.csv"
+table_name = "accident_data"
 
 # Create Database Connection
 # ----------------------------------
 # Creates a connection to our DB
-engine = create_engine("sqlite:///../../Resources/earthquakes.sqlite")
+engine = create_engine("sqlite:///../../Resources/park_accidents.sqlite", encoding="ANSI")
 conn = engine.connect()
 
 # Read csv as dataframe and convert to sql database
 # ----------------------------------
-df = pd.read_csv(earthquake_csv)
+df = pd.read_csv(accidents_csv, encoding="ANSI")
 df.to_sql(table_name, conn, if_exists='append', index=False)
 
 
