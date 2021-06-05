@@ -13,7 +13,3 @@ console.log("Data Promise: ", dataPromise);
 /*#####Building plots###########*/
 
 
-function buildPlot(){
-  d3.(url).then(function(data){}
-    
-  }
