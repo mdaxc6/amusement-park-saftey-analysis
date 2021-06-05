@@ -11,5 +11,7 @@ Project Proposal
 - GitHub Repo: https://github.com/mdaxc6/databootcamp_project_2
 
 -Mike: ETL, sqlite + flask, heroku, leaflet map
+
 -Jordan: HTML/CSS, JS/plotly --> visualization: 
+
 -Nina: HTML/CSS, JS/plotly --> visualization: 
