@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="Resources/static/js/style.css">
+    <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <title>TITLE</title>
 </head>
 <body>
     <div class="wrapper">
@@ -23,11 +22,16 @@
         <h1>Amusement Park Ride Interactive Analysis</h1>
         </div>
         <div class="container">
+        </div>  
         <div class="row margin-top-50">
         </div>
         <footer class="footer">
         <span class="bottom">Amusement Park Ride Safety</span>
         </footer>
+    </div>
+    <div>
+        <button type="button" class="btn btn-primary btn-lg">Interactive U.S. Map</button>
+        <button type="button" class="btn btn-primary btn-lg">Interactive Graphs</button>
     </div>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
