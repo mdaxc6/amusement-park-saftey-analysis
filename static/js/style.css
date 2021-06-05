@@ -1,6 +1,3 @@
-/* all of this may need to be edited */
-
-
 * {
   box-sizing: border-box;
   font-family: Ubuntu, sans-serif;
@@ -28,7 +25,7 @@ body {
   bottom: 0;
   left: 0;
   min-height: 100px;
-  background: #4e5d6c;
+  background: #94c5f5;
 }
 
 /* The code styles the text at the bottom of the footer */
@@ -44,20 +41,6 @@ body {
 .navbar {
   padding: 5px;
   margin: 0;
-}
-
-/* This CSS styles the ufo icon in the navbar */
-.nav-ufo {
-  position: absolute;
-  bottom: 5px;
-  left: 150px;
-  width: 35px;
-  color: white;
-}
-
-/* Adding styles to the aside and filter form */
-.ufo-form {
-  margin-top: 50px;
 }
 
 .filters .panel-body {
