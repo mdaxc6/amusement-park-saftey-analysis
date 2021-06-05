@@ -84,7 +84,7 @@ select {
   padding: 20px;
   margin: 0;
   background: black;
-  background-image: url('../../Images/rollercoaster.jfif');
+  background-image: url('../../Images/bckgd_coaster.jpg');
   background-attachment: fixed;
   background-position: bottom center;
   background-size: cover;
@@ -131,51 +131,10 @@ select {
   }
 }
 
-@media (max-width: 500px) {
-  #table-area thead {
-    display: none;
-  }
-
-  #table-area tr td:first-child {
-    font-size: 1.8em;
-    font-weight: bold;
-    background: #1b3146;
-  }
-
-  #table-area tr td:last-child {
-    margin-bottom: 20px;
-  }
-
-  #table-area tr td:last-child::after {
-    display: block;
-    width: 100%;
-    height: 1px;
-    margin-top: 20px;
-    content: " ";
-    background: rgb(238, 239, 240);
-  }
-
-  #table-area td {
-    font-size: 1.25em;
-  }
-
-  #table-area tbody td {
-    display: block;
-    text-align: center;
-  }
-
-  #table-area tbody td::before {
-    display: block;
-    font-size: 1.4em;
-    font-weight: bold;
-    text-align: center;
-    content: attr(data-th);
-  }
-
   .hero h1 {
     animation: smaller-title 1.2s forwards linear;
   }
-}
+
 
 /* keyframe animations which will be used to animate the title */
 @keyframes title {
