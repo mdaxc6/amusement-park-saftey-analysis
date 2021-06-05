@@ -84,7 +84,7 @@ select {
   padding: 20px;
   margin: 0;
   background: black;
-  background-image: "../rollercoaster.jfif";
+  background-image: url('../../Images/rollercoaster.jfif');
   background-attachment: fixed;
   background-position: bottom center;
   background-size: cover;
@@ -111,17 +111,17 @@ select {
 
 .form-control::-moz-placeholder {
   /* Firefox 19+ */
-  color: #8e979f;
+  color: #fbfcfd;
 }
 
 .form-control:-ms-input-placeholder {
   /* IE 10+ */
-  color: #8e979f;
+  color: #f6f9fc;
 }
 
 .form-control:-moz-placeholder {
   /* Firefox 18- */
-  color: #8e979f;
+  color: #f1f2f3;
 }
 
 /* media queries which will only be activated at specific screen sizes */
@@ -152,7 +152,7 @@ select {
     height: 1px;
     margin-top: 20px;
     content: " ";
-    background: aliceblue;
+    background: rgb(238, 239, 240);
   }
 
   #table-area td {
