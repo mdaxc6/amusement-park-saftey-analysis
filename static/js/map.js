@@ -30,13 +30,15 @@ function createFeatures(stateData, cityData){
 
     };
 
-
+    raidusScale = d3.scaleLinear()
+        .domain([1,99])
+        .range([5, 30])
 
     var accidents_state = L.geoJSON(stateData, {
         onEachFeature: onEachFeature,
         pointToLayer: function (feature, latlng){
             return L.circleMarker(latlng, {
-                radius: feature.properties.num_injured, 
+                radius: raidusScale(feature.properties.num_injured),
                 fillColor: "red",
                 color: "#000",
                 weight: 1,
@@ -51,7 +53,7 @@ function createFeatures(stateData, cityData){
         pointToLayer: function (feature, latlng){
             try{
                 return L.circleMarker(latlng, {
-                    radius: feature.properties.num_injured, 
+                    radius: raidusScale(feature.properties.num_injured), 
                     fillColor: "red",
                     color: "#000",
                     weight: 1,
@@ -102,7 +104,7 @@ function createMap(accidents_state, accidents_city) {
     // Create overlay object to hold our overlay layer
     var overlayMaps = {
         Accidents_state: accidents_state,
-        Accidents_city: Accidents_city
+        Accidents_city: accidents_city
     };
 
     // Create our map, giving it the streetmap and earthquakes layers to display on load
