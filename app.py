@@ -113,7 +113,7 @@ def accident_location_city():
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
-    results = session.query(Accidents)
+    results = session.query(Accidents).filter(Accidents.city_lat != "null");
 
     session.close()
 
