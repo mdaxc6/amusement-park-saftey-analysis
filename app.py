@@ -54,6 +54,7 @@ def all_accidents():
         accident_dict = {}
         accident_dict["date"] = accident.acc_date
         accident_dict["state"] = accident.acc_state
+        accident_dict["state_location"] = {"lat": accident.state_lat, "lng": accident.state_lng }
         accident_dict["bus_type"] = accident.bus_type
         accident_dict["device_category"] = accident.device_category
         accident_dict["industry_sector"] = accident.industry_sector
@@ -65,6 +66,7 @@ def all_accidents():
         accident_dict["category"] = accident.category
         if(accident.acc_city):
             accident_dict["acc_city"] = accident.acc_city
+            accident_dict["city_location"] = {"lat":accident.city_lat, "lng": accident.city_lng }
         if(accident.manufacturer):
             accident_dict["manufacturer"] = accident.manufacturer
         accident_dict["mech_failure"] = True if accident.mechanical else False
