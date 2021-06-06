@@ -1,6 +1,6 @@
-const PREFIX = "https://earthquake-api-v1.herokuapp.com/"
+const PREFIX = "https://park-accidents-api.herokuapp.com/"
 
 
-d3.json("https://earthquake-api-v1.herokuapp.com/api/v1.0/earthquakes").then(function(data){
+d3.json("https://park-accidents-api.herokuapp.com/api/v1.0/all_accidents").then(function(data){
     console.log(data);
 });
