@@ -37,6 +37,8 @@ def index():
     return (
         f"Available Routes:<br/>"
         f"<a href='/api/v1.0/all_accidents'>All Accidents</a><br/>"
+        f"<a href='/api/v1.0/accident_location_state'>Accident Location by State</a><br/>"
+        f"<a href='/api/v1.0/accident_location_city'>Accident Location by City</a><br/>"
     )
 
 
@@ -76,8 +78,66 @@ def all_accidents():
     wrapper = {"accidents": accidentList }
     return jsonify(wrapper)
 
+@app.route("/api/v1.0/accident_location_state")
+def accident_location_state():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
 
+    results = session.query(Accidents)
 
+    session.close()
+
+    geoJson = {
+        "type": "FeatureCollection",
+        "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [accident.state_lng, accident.state_lat],    
+            },
+            "properties": {
+                   "state" : accident.acc_state,
+                   "date": accident.acc_date,
+                   "num_injured": accident.num_injured,
+                   "device_type": accident.device_type,
+                   "injury_desc": accident.injury_desc,
+                   "acc_desc" : accident.acc_desc
+            }
+        } for accident in results]
+    }
+    return geoJson
+
+@app.route("/api/v1.0/accident_location_city")
+def accident_location_city():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
+    results = session.query(Accidents)
+
+    session.close()
+
+    geoJson = {
+        "type": "FeatureCollection",
+        "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [accident.city_lng, accident.city_lat],    
+            },
+            "properties": {
+                   "city": accident.acc_city,
+                   "state" : accident.acc_state,
+                   "date": accident.acc_date,
+                   "num_injured": accident.num_injured,
+                   "device_type": accident.device_type,
+                   "injury_desc": accident.injury_desc,
+                   "acc_desc" : accident.acc_desc
+            }
+        } for accident in results]
+    }
+    return geoJson
 
 if __name__ == '__main__':
     app.run(debug=True)
