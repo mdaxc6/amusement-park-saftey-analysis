@@ -22,7 +22,7 @@ function createFeatures(stateData, cityData){
         layer.bindPopup(`
             <h3><strong>${feature.properties.date}</strong></h3>
             <hr>
-            <h4>${feature.properties.city}, ${feature.properties.state}</h5>
+            <h4>${feature.properties.state}</h5>
             <p>Device Type: ${feature.properties.device_type}<br>
             Number Injured: ${feature.properties.num_injured}<br>
             Injury Description: ${feature.properties.injury_desc}<br>
@@ -36,8 +36,9 @@ function createFeatures(stateData, cityData){
 
     var accidents_state = L.geoJSON(stateData, {
         onEachFeature: onEachFeature,
-        pointToLayer: function (feature, lnglat){
-            return L.circleMarker(lnglat, {
+        pointToLayer: function (feature, latlng){
+            try{
+            return L.circleMarker(latlng, {
                 radius: raidusScale(feature.properties.num_injured),
                 fillColor: "red",
                 color: "#000",
@@ -45,6 +46,9 @@ function createFeatures(stateData, cityData){
                 opacity: 1, 
                 fillOpactiy: 0.8
             });
+            } catch {
+                console.log("no state geodata");
+            }
         }
     });
 
@@ -61,7 +65,7 @@ function createFeatures(stateData, cityData){
                     fillOpactiy: 0.8
                 });
             } catch (error){
-                console.log("no city data")
+                console.log("no city geodata")
             }
         }
     });
