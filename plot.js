@@ -12,4 +12,9 @@ console.log("Data Promise: ", dataPromise);
 
 /*#####Building plots###########*/
 
-
+function buildplot(){
+  d3.json(url).then(function(response) {
+    var data = response.dataset.data;
+  }
+  
+}
