@@ -1,6 +1,6 @@
 # Amusement Park Ride Safety Analysis (Project 2)
 
-![rollercoaster](https://media.giphy.com/media/3og0IyeC3SwvAQQgZq/giphy.gif) ![rollercoaster2](https://media.giphy.com/media/JVCPcgZTYuw1i/giphy.gif)
+![rollercoaster](https://media.giphy.com/media/3og0IyeC3SwvAQQgZq/giphy.gif) 
 
 Project Proposal
 -----------------------
