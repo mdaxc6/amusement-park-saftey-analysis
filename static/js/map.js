@@ -22,7 +22,7 @@ function createFeatures(stateData, cityData){
         layer.bindPopup(`
             <h3><strong>${feature.properties.date}</strong></h3>
             <hr>
-            <h4>${feature.properties.city ? feature.properties.city : ""}, ${feature.properties.state}</h5>
+            <h4>${feature.properties.city}, ${feature.properties.state}</h5>
             <p>Device Type: ${feature.properties.device_type}<br>
             Number Injured: ${feature.properties.num_injured}<br>
             Injury Description: ${feature.properties.injury_desc}<br>
@@ -36,8 +36,8 @@ function createFeatures(stateData, cityData){
 
     var accidents_state = L.geoJSON(stateData, {
         onEachFeature: onEachFeature,
-        pointToLayer: function (feature, latlng){
-            return L.circleMarker(latlng, {
+        pointToLayer: function (feature, lnglat){
+            return L.circleMarker(lnglat, {
                 radius: raidusScale(feature.properties.num_injured),
                 fillColor: "red",
                 color: "#000",
@@ -50,9 +50,9 @@ function createFeatures(stateData, cityData){
 
     var accidents_city = L.geoJSON(cityData, {
         onEachFeature: onEachFeature,
-        pointToLayer: function (feature, latlng){
+        pointToLayer: function (feature, lnglat){
             try{
-                return L.circleMarker(latlng, {
+                return L.circleMarker(lnglat, {
                     radius: raidusScale(feature.properties.num_injured), 
                     fillColor: "red",
                     color: "#000",
