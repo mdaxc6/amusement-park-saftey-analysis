@@ -1,6 +1,6 @@
 # Amusement Park Ride Safety Analysis (Project 2)
 
-![Tremors](https://media.giphy.com/media/LT18pjWNvaU3Uwuav6/giphy.gif)
+![rollercoaster](https://media.giphy.com/media/3og0IyeC3SwvAQQgZq/giphy.gif)
 
 Project Proposal
 -----------------------

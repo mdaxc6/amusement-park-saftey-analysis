@@ -13,7 +13,7 @@ console.log("Data Promise: ", dataPromise);
 /*#####Building plots###########*/
 
 
-/*Accidents over time plot, Device type/accidents, Business type/accident, name/accidents*/
+/*Accidents/time, Device type/accidents, Business type/accident, name/accidents */
 
 function buildplot(){
   d3.json(url).then(function(response) {
