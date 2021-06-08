@@ -3,12 +3,23 @@ body {
     margin: 0;
   }
   
-  #mapid,
-  body,
-  html {
-    height: 100%;
-  }
-  
-  .leaflet-popup-content {
-    text-align: center;
-  }
+#mapid,
+body,
+html {
+  height: 100%;
+}
+
+.labelStyle {
+  color: #000;
+  font-size:14px;
+  font-weight: 700;
+  background-color: none;
+  border-color: none;
+  background: none;
+  border: none;
+  box-shadow: none;
+  margin: 0px;
+  cursor: none;
+  direction: 'center';
+  fill: false;
+}

@@ -32,8 +32,14 @@ function createFeatures(stateData, cityData){
 
     function onEachStateFeature(feature, layer) {
         layer.bindPopup(`<h3>${feature.properties.state}</h3>
-                         <hr>
-                         <p><strong>Number of Accidents:</strong> ${feature.properties.num_accidents}</p>`);
+            <hr>
+            <p><strong>Number of Accidents:</strong> ${feature.properties.num_accidents}</p>`);
+        
+        layer.bindTooltip(`${feature.properties.num_accidents}`, {
+            permanent: true,
+            direction: 'center',
+            className: 'labelStyle', 
+        }).setLatLng(layer.getLatLng());
 
     };
 
@@ -45,12 +51,12 @@ function createFeatures(stateData, cityData){
         onEachFeature: onEachStateFeature,
         pointToLayer: function (feature, lnglat){
             return L.circleMarker(lnglat, {
-                radius: raidusScale(feature.properties.num_injured),
-                fillColor: "red",
+                radius: 20,
+                fillColor: "#f54748",
                 color: "#000",
                 weight: 1,
                 opacity: 1, 
-                fillOpactiy: 0.8
+                fillOpactiy: 1
             });
 
         }
@@ -62,7 +68,7 @@ function createFeatures(stateData, cityData){
             try{
                 return L.circleMarker(lnglat, {
                     radius: raidusScale(feature.properties.num_injured), 
-                    fillColor: "red",
+                    fillColor: "#fb9300",
                     color: "#000",
                     weight: 1,
                     opacity: 1, 
