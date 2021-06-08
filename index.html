@@ -22,8 +22,8 @@
         </h1>
         </div>
         <div>
-            <button type="button" class="btn btn-primary btn-lg">Interactive U.S. Map</button>
-            <button type="button" class="btn btn-primary btn-lg">Interactive Graphs</button>
+            <button onclick="document.location='../static/html/map.html'" type="button" class="btn btn-primary btn-lg">Interactive U.S. Map</button>
+            <button onclick="document.location='plots.html'" type="button" class="btn btn-primary btn-lg">Interactive Graphs</button>
         </div>
         <div class="container">
         </div>  
@@ -37,7 +37,7 @@
     </div>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-    <!-- <script src="app.py"></script> This does not need to be included-->
+    <script src="app.py"></script>
 </body>
 </html>
 
