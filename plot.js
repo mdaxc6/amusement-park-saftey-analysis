@@ -26,8 +26,8 @@ function plotData() {
   var device_type = data[device_type];
 
   // Create arrays 
-  var xData = Object.values(data.device_type);
-  var yData = Object.values(data.acc_date);
+  var xData = Object.values(accident_data.device_type);
+  var yData = Object.values(accident_data.acc_date);
 
   // Create a trace using the platform keys and values
   var trace = {
