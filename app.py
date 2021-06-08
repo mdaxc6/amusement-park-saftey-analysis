@@ -22,7 +22,7 @@ Base.prepare(engine, reflect=True)
 Accidents = Base.classes.accident_data
 
 # save reference to state counts csv
-state_counts_csv = '../../Resources/raw/state_counts.csv'
+state_counts_csv = 'Resources/raw/state_counts.csv'
 state_counts_df = pd.read_csv(state_counts_csv)
 #################################################
 # Flask Setup
@@ -124,11 +124,12 @@ def accident_location_state():
                 "coordinates": [row["state_lng"], row["state_lat"]],    
             },
             "properties": {
-                   "state" : row{"acc_state"},
+                   "state" : row["acc_state"],
                    "num_accidents": row["count"]
             }
         } for index, row in state_counts_df.iterrows()]
     }
+
     return geoJson
 
 

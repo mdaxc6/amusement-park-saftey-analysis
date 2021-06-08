@@ -31,14 +31,9 @@ function createFeatures(stateData, cityData){
     };
 
     function onEachStateFeature(feature, layer) {
-        layer.bindPopup(`
-            <h3><strong>${feature.properties.date}</strong></h3>
-            <hr>
-            <h4>${feature.properties.state}</h5>
-            <p>Device Type: ${feature.properties.device_type}<br>
-            Number Injured: ${feature.properties.num_injured}<br>
-            Injury Description: ${feature.properties.injury_desc}<br>
-            ${feature.properties.acc_desc}</p>`);
+        layer.bindPopup(`<h3>${feature.properties.state}</h3>
+                         <hr>
+                         <p><strong>Number of Accidents:</strong> ${feature.properties.num_accidents}</p>`);
 
     };
 
