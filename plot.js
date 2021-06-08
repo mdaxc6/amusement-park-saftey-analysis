@@ -20,16 +20,25 @@ console.log("Data Promise: ", dataPromise);
 // Function to display the plot
 function plotData(data) {
   // Select the node using d3
-  var selectNode = d3.select("selDataset");
+  //var selectNode = d3.select("selDataset");
 
   //var accident = selectNode.property("acc_date");
 
+  // Create arrays 
+  var xData = [];//Object.values(data.device_type);
+  var yData = [];//Object.values(data.acc_date);
 
   var device_type = data[device_type];
 
-  // Create arrays 
-  var xData = Object.values(data.device_type);
-  var yData = Object.values(data.acc_date);
+  data["accidents"].forEach(function(data){
+    if (data.device_type && data.date){
+      xData.push(data.device_type);
+      yData.push(data.date);
+    }
+  });
+
+  console.log(xData);
+  console.log(yData);
 
   // Create a trace using the platform keys and values
   var trace = {
