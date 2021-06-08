@@ -1,5 +1,5 @@
 import numpy as np
-
+import pandas as pd
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -21,6 +21,9 @@ Base.prepare(engine, reflect=True)
 # Save reference to the table
 Accidents = Base.classes.accident_data
 
+# save reference to state counts csv
+state_counts_csv = 'Resources/raw/state_counts.csv'
+state_counts_df = pd.read_csv(state_counts_csv)
 #################################################
 # Flask Setup
 #################################################
@@ -78,14 +81,38 @@ def all_accidents():
     wrapper = {"accidents": accidentList }
     return jsonify(wrapper)
 
+# @app.route("/api/v1.0/accident_location_state")
+# def accident_location_state():
+#     # Create our session (link) from Python to the DB
+#     session = Session(engine)
+
+#     results = session.query(Accidents)
+
+#     session.close()
+
+#     geoJson = {
+#         "type": "FeatureCollection",
+#         "features": [
+#         {
+#             "type": "Feature",
+#             "geometry": {
+#                 "type": "Point",
+#                 "coordinates": [accident.state_lng, accident.state_lat],    
+#             },
+#             "properties": {
+#                    "state" : accident.acc_state,
+#                    "date": accident.acc_date,
+#                    "num_injured": accident.num_injured,
+#                    "device_type": accident.device_type,
+#                    "injury_desc": accident.injury_desc,
+#                    "acc_desc" : accident.acc_desc
+#             }
+#         } for accident in results]
+#     }
+#     return geoJson
+
 @app.route("/api/v1.0/accident_location_state")
 def accident_location_state():
-    # Create our session (link) from Python to the DB
-    session = Session(engine)
-
-    results = session.query(Accidents)
-
-    session.close()
 
     geoJson = {
         "type": "FeatureCollection",
@@ -94,19 +121,17 @@ def accident_location_state():
             "type": "Feature",
             "geometry": {
                 "type": "Point",
-                "coordinates": [accident.state_lng, accident.state_lat],    
+                "coordinates": [row["state_lng"], row["state_lat"]],    
             },
             "properties": {
-                   "state" : accident.acc_state,
-                   "date": accident.acc_date,
-                   "num_injured": accident.num_injured,
-                   "device_type": accident.device_type,
-                   "injury_desc": accident.injury_desc,
-                   "acc_desc" : accident.acc_desc
+                   "state" : row["acc_state"],
+                   "num_accidents": row["count"]
             }
-        } for accident in results]
+        } for index, row in state_counts_df.iterrows()]
     }
+
     return geoJson
+
 
 @app.route("/api/v1.0/accident_location_city")
 def accident_location_city():

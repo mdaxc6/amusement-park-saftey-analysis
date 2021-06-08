@@ -18,15 +18,28 @@ function init() {
 
 function createFeatures(stateData, cityData){
 
-    function onEachFeature(feature, layer) {
+    function onEachCityFeature(feature, layer) {
         layer.bindPopup(`
             <h3><strong>${feature.properties.date}</strong></h3>
             <hr>
-            <h4>${feature.properties.state}</h5>
+            <h4>${feature.properties.city}, ${feature.properties.state}</h5>
             <p>Device Type: ${feature.properties.device_type}<br>
             Number Injured: ${feature.properties.num_injured}<br>
             Injury Description: ${feature.properties.injury_desc}<br>
             ${feature.properties.acc_desc}</p>`);
+
+    };
+
+    function onEachStateFeature(feature, layer) {
+        layer.bindPopup(`<h3>${feature.properties.state}</h3>
+            <hr>
+            <p><strong>Number of Accidents:</strong> ${feature.properties.num_accidents}</p>`);
+        
+        layer.bindTooltip(`${feature.properties.num_accidents}`, {
+            permanent: true,
+            direction: 'center',
+            className: 'labelStyle', 
+        }).setLatLng(layer.getLatLng());
 
     };
 
@@ -35,30 +48,27 @@ function createFeatures(stateData, cityData){
         .range([5, 30])
 
     var accidents_state = L.geoJSON(stateData, {
-        onEachFeature: onEachFeature,
-        pointToLayer: function (feature, latlng){
-            try{
-            return L.circleMarker(latlng, {
-                radius: raidusScale(feature.properties.num_injured),
-                fillColor: "red",
+        onEachFeature: onEachStateFeature,
+        pointToLayer: function (feature, lnglat){
+            return L.circleMarker(lnglat, {
+                radius: 20,
+                fillColor: "#f54748",
                 color: "#000",
                 weight: 1,
                 opacity: 1, 
-                fillOpactiy: 0.8
+                fillOpactiy: 1
             });
-            } catch {
-                console.log("no state geodata");
-            }
+
         }
     });
 
     var accidents_city = L.geoJSON(cityData, {
-        onEachFeature: onEachFeature,
+        onEachFeature: onEachCityFeature,
         pointToLayer: function (feature, lnglat){
             try{
                 return L.circleMarker(lnglat, {
                     radius: raidusScale(feature.properties.num_injured), 
-                    fillColor: "red",
+                    fillColor: "#fb9300",
                     color: "#000",
                     weight: 1,
                     opacity: 1, 
