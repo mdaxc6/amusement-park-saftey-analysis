@@ -12,8 +12,6 @@ function init() {
         });
     });
 
-    console.log("init");
-
 }
 
 function createFeatures(stateData, cityData){
@@ -60,10 +58,6 @@ function createFeatures(stateData, cityData){
                     '#566c86';
     }
 
-    // 'Amusement park', 'Unknown', 'Carnival or rental',
-    //    'Family entertainment center', 'Water park', 'Pool waterslide',
-    //    'Zoo or museum', 'Mall, store or restaurant', 'Other',
-    //    'Sports or recreation facility', 'City or county park'
 
     var accidents_state = L.geoJSON(stateData, {
         onEachFeature: onEachStateFeature,
@@ -90,18 +84,38 @@ function createFeatures(stateData, cityData){
                     color: "#000",
                     weight: 1,
                     opacity: 1, 
-                    fillOpactiy: 0.8
+                    fillOpactiy: 1
                 });
             } catch (error){
                 console.log("no city geodata")
             }
         }
     });
-    console.log("geoJSON obect:", accidents_state)
-    createMap(accidents_state, accidents_city);
+
+    var legend = L.control({position: 'bottomright'});
+    legend.onAdd = function () {
+    var div = L.DomUtil.create('div', 'info legend');
+    labels = ['<strong>Business Types</strong>'],
+    categories = ['Amusement park', 'Carnival or rental',
+    'Family entertainment center', 'Water park', 'Pool waterslide',
+    'Zoo or museum', 'Mall, store or restaurant',
+    'Sports or recreation facility', 'City or county park'];
+
+    for (var i = 0; i < categories.length; i++) {
+            div.innerHTML += 
+            labels.push(
+                '<i class="circle" style="background:' + chooseColor(categories[i]) + '"></i> ' +
+            (categories[i] ? categories[i] : '+'));
+
+        }
+        div.innerHTML = labels.join('<br>');
+        return div;
+    };
+
+    createMap(accidents_state, accidents_city, legend);
 }
 
-function createMap(accidents_state, accidents_city) {
+function createMap(accidents_state, accidents_city, legend) {
     // Define streetmap, darkmap and satellite layers
     var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
         attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
@@ -147,7 +161,6 @@ function createMap(accidents_state, accidents_city) {
         zoom: 5,
         layers: [streetmap, accidents_city]
     });
-    console.log("map created");
     // Create a layer control
     // Pass in our baseMaps and overlayMaps
     // Add the layer control to the map
@@ -155,7 +168,7 @@ function createMap(accidents_state, accidents_city) {
         collapsed: false
     }).addTo(myMap);
 
-    console.log("map added")
+    legend.addTo(myMap);
 };
 
 window.addEventListener('DOMContentLoaded', init);
