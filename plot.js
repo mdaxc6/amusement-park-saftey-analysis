@@ -63,7 +63,7 @@ function updatePlot(data) {
 //SCATTER PLOT WITH HOVER TEXT//
 
 
-function plotBar(data) {
+function plotC(data) {
   
   // Create arrays 
   var xData = [];
@@ -72,9 +72,11 @@ function plotBar(data) {
   var trademarkname_or_generic = [];
 
   var device_type = data[device_type];
+  var parseTime = d3.timeParse("FORMAT STRING HERE");
 
   data["accidents"].forEach(function(data){
     if (data.device_type && data.date){
+        data.date = parseTime(data.date);
       xData.push(data.date);
       yData.push(data.bus_type);
     }
@@ -97,16 +99,16 @@ function plotBar(data) {
   var data = [trace];
   
   var layout = {
-    xaxis: {
-      range: [ 0.75, 5.25 ]
-    },
-    yaxis: {
-      range: [0, 8]
-    },
+    // xaxis: {
+    //   range: [ 0.75, 5.25 ]
+    // },
+    // yaxis: {
+    //   range: [0, 8]
+    // },
     title:'Accidents Vs Type of Amusement Park'
   };
   
-  Plotly.newPlot('chartDiv', data, layout);
+  Plotly.newPlot('scatterDiv', data, layout);
   // Return data to form chart
   return chartData;
 }
@@ -115,7 +117,7 @@ function updatePlot(data) {
   var chartData = plotData(data);
 
   // Use `Plotly.react()` to update plot
-  Plotly.react("chartDiv", chartData);
+  Plotly.react("scatterDiv", chartData);
 }
 
 // Function to create initial chart
