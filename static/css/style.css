@@ -112,13 +112,3 @@ select {
     opacity: 2;
   }
 }
-
-@keyframes subtitle {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 2;
-  }
-}
