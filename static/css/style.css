@@ -59,24 +59,6 @@ select {
   outline: none;
 }
 
-#table-area th {
-  text-align: center;
-}
-
-#table-area th:first-child,
-#table-area th:nth-child(2),
-#table-area th:nth-child(6) {
-  min-width: 70px;
-}
-
-.loader {
-  margin-top: 50px;
-}
-
-.margin-top-50 {
-  margin-top: 50px;
-}
-
 /* The styles for the parallax */
 .hero {
   position: relative;
@@ -94,13 +76,6 @@ select {
   margin-top: 200px;
   font-size: 0.1rem;
   animation: title 1.2s forwards linear;
-}
-
-.hero p {
-  font-size: 2rem;
-  opacity: 0;
-  animation: subtitle 1.2s forwards linear;
-  animation-delay: 1.2s;
 }
 
 /* media queries which will only be activated at specific screen sizes */
