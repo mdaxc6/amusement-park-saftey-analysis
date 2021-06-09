@@ -106,7 +106,7 @@ function plotBar(data) {
     title:'Accidents Vs Type of Amusement Park'
   };
   
-  Plotly.newPlot('chartDiv', data, layout);
+  Plotly.newPlot('scatterDiv', data, layout);
   // Return data to form chart
   return chartData;
 }
@@ -115,7 +115,7 @@ function updatePlot(data) {
   var chartData = plotData(data);
 
   // Use `Plotly.react()` to update plot
-  Plotly.react("chartDiv", chartData);
+  Plotly.react("scatterDiv", chartData);
 }
 
 // Function to create initial chart
