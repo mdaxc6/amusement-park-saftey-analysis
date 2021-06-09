@@ -12,30 +12,30 @@ const dataPromise = d3.json(url);
 console.log("Data Promise: ", dataPromise);
 
 
-/*#####Building plots###########*/
+//PLOTS//
 
 
 /*Accidents/time, Device type/accidents, Business type/accident, name/accidents */
 
 // Function to display the plot
-function plotData(data) {
-  // Select the node using d3
-  //var selectNode = d3.select("selDataset");
-
-  //var accident = selectNode.property("acc_date");
-
+function plotBar(data) {
+  
   // Create arrays 
-  var xData = [];//Object.values(data.device_type);
-  var yData = [];//Object.values(data.acc_date);
+  var xData = [];
+  var yData = [];
 
   var device_type = data[device_type];
 
   data["accidents"].forEach(function(data){
+    if (data.device_type && data.date){
     if(data.device_type && data.date){
       xData.push(data.device_type);
       yData.push(data.date);
     }
-  });
+  }});
+
+  console.log(xData);
+  console.log(yData);
   // // Create arrays 
   // var xData = Object.values(accident_data.device_type);
   // var yData = Object.values(accident_data.acc_date);
@@ -54,6 +54,65 @@ function plotData(data) {
 }
 
 function updatePlot(data) {
+  var chartData = plotBar(data);
+
+  // Use `Plotly.react()` to update plot
+  Plotly.react("chartDiv", chartData);
+}
+
+//SCATTER PLOT WITH HOVER TEXT//
+
+
+function plotBar(data) {
+  
+  // Create arrays 
+  var xData = [];
+  var yData = [];
+  var device_category = [];
+  var trademarkname_or_generic = [];
+
+  var device_type = data[device_type];
+
+  data["accidents"].forEach(function(data){
+    if (data.device_type && data.date){
+      xData.push(data.bus_type);
+      yData.push(data.date);
+    }
+  });
+
+  console.log(xData);
+  console.log(yData);
+
+  // Creating Trace
+
+  var trace = {
+    x: xData,
+    y: yData,
+    mode: 'markers',
+    type: 'scatter',
+    name: '',
+    text: ['', ],
+    marker: { size: 12 }
+  };
+  
+  var data = [trace];
+  
+  var layout = {
+    xaxis: {
+      range: [ 0.75, 5.25 ]
+    },
+    yaxis: {
+      range: [0, 8]
+    },
+    title:'Accidents Vs Type of Amusement Park'
+  };
+  
+  Plotly.newPlot('myDiv', data, layout);
+  // Return data to form chart
+  return chartData;
+}
+
+function updatePlot(data) {
   var chartData = plotData(data);
 
   // Use `Plotly.react()` to update plot
@@ -62,10 +121,12 @@ function updatePlot(data) {
 
 // Function to create initial chart
 function init(data) {
-  var chartData = plotData(data);
-  var layout = {height: 600, width:800};
-  Plotly.newPlot("chartDiv", chartData, layout);
+  plotBar(data);
+  plotScatter(data);
+
 }
+// New plot
+
 
 // On change to the DOM, call updatePlot()
 d3.selectAll("selDataset").on("change", updatePlot);
