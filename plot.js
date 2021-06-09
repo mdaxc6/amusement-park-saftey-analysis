@@ -28,13 +28,17 @@ function plotBar(data) {
 
   data["accidents"].forEach(function(data){
     if (data.device_type && data.date){
+    if(data.device_type && data.date){
       xData.push(data.device_type);
       yData.push(data.date);
     }
-  });
+  }});
 
   console.log(xData);
   console.log(yData);
+  // // Create arrays 
+  // var xData = Object.values(accident_data.device_type);
+  // var yData = Object.values(accident_data.acc_date);
 
   // Create a trace using the platform keys and values
   var trace = {
