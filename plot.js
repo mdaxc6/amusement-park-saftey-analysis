@@ -63,7 +63,7 @@ function updatePlot(data) {
 //SCATTER PLOT WITH HOVER TEXT//
 
 
-function plotC(data) {
+function plotScatter(data) {
   
   // Create arrays 
   var xData = [];
@@ -72,7 +72,7 @@ function plotC(data) {
   var trademarkname_or_generic = [];
 
   var device_type = data[device_type];
-  var parseTime = d3.timeParse("FORMAT STRING HERE");
+  var parseTime = d3.timeParse("%m/%d/%Y");
 
   data["accidents"].forEach(function(data){
     if (data.device_type && data.date){
@@ -114,7 +114,7 @@ function plotC(data) {
 }
 
 function updatePlot(data) {
-  var chartData = plotData(data);
+  var chartData = plotScatter(data);
 
   // Use `Plotly.react()` to update plot
   Plotly.react("scatterDiv", chartData);
