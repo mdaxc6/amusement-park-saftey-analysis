@@ -1,2 +1,4 @@
 querytests.*
-config.*
+config.py
+config.json
+.env
