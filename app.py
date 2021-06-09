@@ -81,35 +81,6 @@ def all_accidents():
     wrapper = {"accidents": accidentList }
     return jsonify(wrapper)
 
-# @app.route("/api/v1.0/accident_location_state")
-# def accident_location_state():
-#     # Create our session (link) from Python to the DB
-#     session = Session(engine)
-
-#     results = session.query(Accidents)
-
-#     session.close()
-
-#     geoJson = {
-#         "type": "FeatureCollection",
-#         "features": [
-#         {
-#             "type": "Feature",
-#             "geometry": {
-#                 "type": "Point",
-#                 "coordinates": [accident.state_lng, accident.state_lat],    
-#             },
-#             "properties": {
-#                    "state" : accident.acc_state,
-#                    "date": accident.acc_date,
-#                    "num_injured": accident.num_injured,
-#                    "device_type": accident.device_type,
-#                    "injury_desc": accident.injury_desc,
-#                    "acc_desc" : accident.acc_desc
-#             }
-#         } for accident in results]
-#     }
-#     return geoJson
 
 @app.route("/api/v1.0/accident_location_state")
 def accident_location_state():
@@ -158,7 +129,8 @@ def accident_location_city():
                    "num_injured": accident.num_injured,
                    "device_type": accident.device_type,
                    "injury_desc": accident.injury_desc,
-                   "acc_desc" : accident.acc_desc
+                   "acc_desc" : accident.acc_desc,
+                   "bus_type" : accident.bus_type
             }
         } for accident in results]
     }

@@ -47,6 +47,24 @@ function createFeatures(stateData, cityData){
         .domain([1,99])
         .range([5, 30])
 
+    function chooseColor(bus_type){
+        return bus_type == 'Amusement park' ? '#b13e53' :
+        bus_type == 'Carnival or rental'  ? '#ef7d57' :
+        bus_type == 'Family entertainment center'  ? '#ffcd75' :
+        bus_type == 'Water park'  ? '#a7f070' :
+        bus_type == 'Pool waterslide'  ? '#38b764' :
+        bus_type == 'Zoo or museum' ? '#257179' :
+        bus_type == 'Mall, store or restaurant' ? '#29366f' :
+        bus_type == 'Sports or recreation facility'? '#3b5dc9' :
+        bus_type == 'City or county park' ? '#73eff7' :
+                    '#566c86';
+    }
+
+    // 'Amusement park', 'Unknown', 'Carnival or rental',
+    //    'Family entertainment center', 'Water park', 'Pool waterslide',
+    //    'Zoo or museum', 'Mall, store or restaurant', 'Other',
+    //    'Sports or recreation facility', 'City or county park'
+
     var accidents_state = L.geoJSON(stateData, {
         onEachFeature: onEachStateFeature,
         pointToLayer: function (feature, lnglat){
@@ -68,7 +86,7 @@ function createFeatures(stateData, cityData){
             try{
                 return L.circleMarker(lnglat, {
                     radius: raidusScale(feature.properties.num_injured), 
-                    fillColor: "#fb9300",
+                    fillColor: chooseColor(feature.properties.bus_type),
                     color: "#000",
                     weight: 1,
                     opacity: 1, 
