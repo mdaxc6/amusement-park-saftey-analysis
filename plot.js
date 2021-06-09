@@ -63,7 +63,7 @@ function updatePlot(data) {
 //SCATTER PLOT WITH HOVER TEXT//
 
 
-function plotBar(data) {
+function plotScatter(data) {
   
   // Create arrays 
   var xData = [];
