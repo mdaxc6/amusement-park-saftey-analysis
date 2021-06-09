@@ -12,6 +12,6 @@ Project Proposal
 
 -Mike: ETL, sqlite + flask, heroku, leaflet map
 
--Jordan: HTML/CSS, JS/plotly --> visualization: 
+-Jordan: JS/plotly --> plots
 
--Nina: HTML/CSS, JS/plotly --> visualization: 
+-Nina: HTML/CSS, JS 
