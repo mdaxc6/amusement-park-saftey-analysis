@@ -45,6 +45,7 @@ function createFeatures(stateData, cityData){
         .domain([1,99])
         .range([5, 30])
 
+
     function chooseColor(bus_type){
         return bus_type == 'Amusement park' ? '#b13e53' :
         bus_type == 'Carnival or rental'  ? '#ef7d57' :
@@ -57,7 +58,6 @@ function createFeatures(stateData, cityData){
         bus_type == 'City or county park' ? '#73eff7' :
                     '#566c86';
     }
-
 
     var accidents_state = L.geoJSON(stateData, {
         onEachFeature: onEachStateFeature,
@@ -91,6 +91,45 @@ function createFeatures(stateData, cityData){
             }
         }
     });
+    
+    function filterBusType(bus_type){
+        var filteredData = L.geoJSON(cityData, {
+            onEachFeature: onEachCityFeature,
+            pointToLayer: function (feature, lnglat){
+                return L.circleMarker(lnglat, {
+                    radius: raidusScale(feature.properties.num_injured),
+                    fillColor: chooseColor(feature.properties.bus_type),
+                    color: "#000",
+                    weight: 1,
+                    opacity: 1, 
+                    fillOpactiy: 1
+                });
+    
+            },
+            filter: function(feature, layer){
+                return feature.properties.bus_type == bus_type;
+            } 
+        })
+
+        return filteredData;
+    }
+
+    var filterMaps = {
+        "Accidents Statewide": accidents_state,
+        "Accidents by City": accidents_city,
+        "Amusement Parks": filterBusType('Amusement park'),
+        "Carnival or Rentals": filterBusType('Carnival or rental'),
+        "Family Centers": filterBusType('Family entertainment center'),
+        "Water Park": filterBusType('Water park'),
+        "Pool Waterslide": filterBusType('Pool waterslide') ,
+        "Zoo or Museum": filterBusType('Zoo or museum'),
+        "Retail": filterBusType('Mall, store or restaurant'),
+        "Sports & Recreation Facilities": filterBusType('Sports or recreation facility') ,
+        "City or County Park": filterBusType('City or county park'),
+        "Other": filterBusType('Other'),
+        "Unknown": filterBusType('Unknown')
+    }
+
 
     var legend = L.control({position: 'bottomright'});
     legend.onAdd = function () {
@@ -112,10 +151,10 @@ function createFeatures(stateData, cityData){
         return div;
     };
 
-    createMap(accidents_state, accidents_city, legend);
+    createMap(accidents_city, legend, filterMaps);
 }
 
-function createMap(accidents_state, accidents_city, legend) {
+function createMap(accidents_city, legend, filterMaps) {
     // Define streetmap, darkmap and satellite layers
     var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
         attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
@@ -147,11 +186,13 @@ function createMap(accidents_state, accidents_city, legend) {
         "Satellite Map": satellitemap
     };
 
-    // Create overlay object to hold our overlay layer
-    var overlayMaps = {
-        Accidents_state: accidents_state,
-        Accidents_city: accidents_city
-    };
+    // // Create overlay object to hold our overlay layer
+    // var overlayMaps = {
+    //     Accidents_state: accidents_state,
+    //     Accidents_city: accidents_city
+    // };
+
+
 
     // Create our map, giving it the streetmap and earthquakes layers to display on load
     var myMap = L.map("mapid", {
@@ -164,7 +205,11 @@ function createMap(accidents_state, accidents_city, legend) {
     // Create a layer control
     // Pass in our baseMaps and overlayMaps
     // Add the layer control to the map
-    L.control.layers(baseMaps, overlayMaps, {
+    // L.control.layers(baseMaps, overlayMaps,{
+    //     collapsed: false
+    // }).addTo(myMap);
+
+    L.control.layers(baseMaps, filterMaps, {
         collapsed: false
     }).addTo(myMap);
 
