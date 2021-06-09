@@ -75,8 +75,8 @@ function plotBar(data) {
 
   data["accidents"].forEach(function(data){
     if (data.device_type && data.date){
-      xData.push(data.bus_type);
-      yData.push(data.date);
+      xData.push(data.date);
+      yData.push(data.bus_type);
     }
   });
 
@@ -90,8 +90,7 @@ function plotBar(data) {
     y: yData,
     mode: 'markers',
     type: 'scatter',
-    name: '',
-    text: ['', ],
+    text: [''],
     marker: { size: 12 }
   };
   
@@ -107,7 +106,7 @@ function plotBar(data) {
     title:'Accidents Vs Type of Amusement Park'
   };
   
-  Plotly.newPlot('myDiv', data, layout);
+  Plotly.newPlot('chartDiv', data, layout);
   // Return data to form chart
   return chartData;
 }
