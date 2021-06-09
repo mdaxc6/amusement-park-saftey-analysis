@@ -11,7 +11,7 @@ html {
 
 .labelStyle {
   color: #000;
-  font-size:14px;
+  font-size:12px;
   font-weight: 700;
   background-color: none;
   border-color: none;
@@ -37,12 +37,14 @@ html {
 }
 
 .legend {
-  line-height: 18px;
+  line-height: 12px;
   color: #555;
+  opacity: 0.8;
 }
+
 .legend i {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   float: left;
   margin-right: 8px;
   background-color: antiquewhite;

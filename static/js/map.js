@@ -147,14 +147,14 @@ function createFeatures(stateData, cityData){
             (categories[i] ? categories[i] : '+'));
 
         }
-        div.innerHTML = labels.join('<br>');
+        div.innerHTML = labels.join('<br><br>');
         return div;
     };
 
-    createMap(accidents_city, legend, filterMaps);
+    createMap(accidents_state, legend, filterMaps);
 }
 
-function createMap(accidents_city, legend, filterMaps) {
+function createMap(accidents_state, legend, filterMaps) {
     // Define streetmap, darkmap and satellite layers
     var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
         attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
@@ -186,28 +186,15 @@ function createMap(accidents_city, legend, filterMaps) {
         "Satellite Map": satellitemap
     };
 
-    // // Create overlay object to hold our overlay layer
-    // var overlayMaps = {
-    //     Accidents_state: accidents_state,
-    //     Accidents_city: accidents_city
-    // };
-
-
-
     // Create our map, giving it the streetmap and earthquakes layers to display on load
     var myMap = L.map("mapid", {
         center: [
-            37.09, -95.71
+            37.09, -85.71
         ],
-        zoom: 5,
-        layers: [streetmap, accidents_city]
+        zoom: 4,
+        layers: [streetmap, accidents_state]
     });
-    // Create a layer control
-    // Pass in our baseMaps and overlayMaps
-    // Add the layer control to the map
-    // L.control.layers(baseMaps, overlayMaps,{
-    //     collapsed: false
-    // }).addTo(myMap);
+
 
     L.control.layers(baseMaps, filterMaps, {
         collapsed: false
