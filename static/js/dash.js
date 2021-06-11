@@ -4,19 +4,26 @@ var api_url = `${PREFIX}/api/v1.0/all_accidents`
 var bus_types = []
 var markerLayer = null
 // Perform a GET request to the query URLs
-d3.json(api_url).then(function(data) {
+d3.json(api_url).then(function (data) {
     data.accidents.forEach(accident => bus_types.push(accident.bus_type));
-    console.log(d3.map(bus_types, function(d){return d;}).keys());
     // populate the select feilds with each unique business types
     d3.select("#selDataset").selectAll("option")
-    .data(d3.map(bus_types, function(d){return d}).keys())
-    .enter()
-    .append("option")
-    .text(function(d){return d})
-    .attr("value",function(d){return d});
+        .data(d3.map(bus_types, function (d) {
+            return d
+        }).keys())
+        .enter()
+        .append("option")
+        .text(function (d) {
+            return d
+        })
+        .attr("value", function (d) {
+            return d
+        });
 
-    d3.json(city_url).then(function(response){
-        init(response.features);
+    plotInit(data);
+
+    d3.json(city_url).then(function (response) {
+        mapInit(response.features);
     })
 
 });
@@ -55,52 +62,178 @@ var baseMaps = {
 // Create our map
 var myMap = L.map("mapid", {
     center: [
-        37.09, -95.71
+        39.8283, -98.5795
     ],
     zoom: 4,
-    layers: [darkmap]
+    layers: [streetmap]
 });
 
- var layers = L.control.layers(baseMaps).addTo(myMap);
+var layers = L.control.layers(baseMaps).addTo(myMap);
 
+function onEachFeature(feature, layer) {
+    layer.bindPopup(`
+        <h3><strong>${feature.properties.date}</strong></h3>
+        <hr>
+        <h4>${feature.properties.city}, ${feature.properties.state}</h5>
+        <p>Device Type: ${feature.properties.device_type}<br>
+        Number Injured: ${feature.properties.num_injured}<br>
+        Injury Description: ${feature.properties.injury_desc}<br>
+        ${feature.properties.acc_desc}</p>`);
 
-function getBusTypesLayer(geodata){
-// var layerData;
+};
+
+function chooseColor(bus_type){
+    return bus_type == 'Amusement park' ? '#1F78B4' :
+    bus_type == 'Carnival or rental'  ? '#2CA02C' :
+    bus_type == 'Family entertainment center'  ? '#D72728' :
+    bus_type == 'Water park'  ? '#D72728' :
+    bus_type == 'Pool waterslide'  ? '#8C564B' :
+    bus_type == 'Zoo or museum' ? '#E477C2' :
+    bus_type == 'Mall, store or restaurant' ? '#7F7F7F' :
+    bus_type == 'Sports or recreation facility'? '#BCBD22' :
+    bus_type == 'City or county park' ? '#1F77B4' :
+    bus_type == 'Other' ? '#BCBD22' :
+                '#FF7F0E';
+}
+
+function getBusTypesLayer(geodata) {
+    // var layerData;
     var bus_type = d3.select("#selDataset").property("value");
     var filteredData = L.geoJSON(geodata, {
-        pointToLayer: function (feature, lnglat){
+        onEachFeature: onEachFeature,
+        pointToLayer: function (feature, lnglat) {
             return L.circleMarker(lnglat, {
                 radius: 5,
-                fillColor: "red",
+                fillColor: chooseColor(feature.properties.bus_type),
                 color: "#000",
                 weight: 1,
-                opacity: 1, 
+                opacity: 1,
                 fillOpactiy: 1
             });
 
         },
-        filter: function(feature, layer){
+        filter: function (feature, layer) {
             return feature.properties.bus_type == bus_type;
         }
-    })  
+    })
 
     return filteredData;
 }
 
+function filterData(data) {
+    var bus_type = d3.select("#selDataset").property("value");
+    var filtered = data["accidents"].filter(accident => accident.bus_type == bus_type);
+    return filtered;
+}
 
-function updateMap(geodata){
-    if(markerLayer){myMap.removeLayer(markerLayer);}
+function updateMap(geodata) {
+    if (markerLayer) {
+        myMap.removeLayer(markerLayer);
+    }
     markerLayer = getBusTypesLayer(geodata);
     myMap.addLayer(markerLayer);
 }
 
+function plotScatter(data) {
+    // Create arrays 
+    var xData = [];
+    var yData = [];
 
-function init(geodata){
+
+    var bus_type = data[bus_type];
+    var parseTime = d3.timeParse("%m/%d/%Y");
+
+    data["accidents"].forEach(function (data) {
+        if (data.bus_type && data.date) {
+            data.date = parseTime(data.date);
+            xData.push(data.date);
+            yData.push(data.bus_type);
+        }
+    });
+
+    /////// Adding colors to al of the plots
+    var trace = []
+    var device = []
+
+    for (let i = 0; i < xData.length; i += 1) {
+        if (device.indexOf(yData[i]) === -1) {
+            trace.push({
+                x: [],
+                y: [],
+                mode: 'markers',
+                name: yData[i],
+                type: 'scatter'
+
+            });
+            device.push(yData[i]);
+        } else {
+            trace[device.indexOf(yData[i])].x.push(xData[i]);
+            trace[device.indexOf(yData[i])].y.push(yData[i]);
+        }
+    }
+
+    var layout = {
+        title: 'Number of Incidents over Time',
+        showlegend: false,
+        margin: {
+            l: 200,
+            b: 100
+        }
+    };
+
+    Plotly.newPlot('scatter', trace, layout);
+}
+
+function plotBar(data) {
+
+    // Create arrays 
+    var xData = [];
+    var yData = [];
+
+    data["accidents"].forEach(function (data) {
+        if (data.bus_type && data.num_injured) {
+            yData.push(data.num_injured);
+            xData.push(data.bus_type);
+        }
+    });
+
+    var trace1 = {
+        x: xData,
+        y: yData,
+        type: "bar"
+    };
+
+    var data = [trace1];
+
+    var layout = {
+        title: 'Device Type & Number injured',
+        showlegend: false,
+        height: 600,
+        width: 600,
+        margin: {
+            b:200
+        }
+    };
+
+    Plotly.newPlot('bar', data, layout);
+}
+
+
+function mapInit(geodata) {
     updateMap(geodata);
 }
 
-function optionChanged(){
-    d3.json(city_url).then(function(response){
-        init(response.features);
-    })
+function plotInit(data) {
+    plotScatter(data);
+    plotBar(data);
+}
+
+
+
+function optionChanged() {
+    var bus_type = d3.select("#selDataset").property("value");
+    d3.json(city_url).then(function (response) {
+        mapInit(response.features);
+    });
+
 }

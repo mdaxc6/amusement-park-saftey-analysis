@@ -15,10 +15,11 @@
   crossorigin=""/>
 
   <!-- Our CSS -->
-  <link rel="stylesheet" type="text/css" href="../css/map.css">
+  <link rel="stylesheet" type="text/css" href="../css/dash.css">
 </head>
 
 <body>
+  <div class="page-wrap">
   <div class="wrapper">
     <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -42,27 +43,27 @@
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
       </div>
-      <div class="col-md-5">
-        <div id="bar"></div>
+      <div class="col-md-9">
+        <div id="mapid"></div>
       </div>
-      <div class="col-md-5">
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <div id="scatter"></div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div id="mapid"></div>
+        <div id="bar"></div>
       </div>
     </div>
   </div>
-
-  <div>
-    <footer class="footer">
+</div>
+  <footer class="footer">
     <span class="bottom" style="font-size:20px;font-weight:bold;color:rgba(248, 179, 52, 0.7);">
         Mike Absher, Jordan Wright, & Nina Paljakka-Cargo
     </span>
-    </footer>
-  </div>
+  </footer>
 
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
@@ -76,12 +77,14 @@
   <!-- Our JavaScript -->
   <!-- <script type="text/javascript" src="../js/map.js"></script> -->
   <script type="text/javascript" src="../js/dash.js"></script>
-
-
+  <!-- Plotly script -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <!--Easter Egg JS Library. . .for fun-->
   <script src="https://rawgit.com/WeiChiaChang/Easter-egg/master/easter-eggs-collection.js"></script>
 
 
 </body>
+
+
 
 </html>
