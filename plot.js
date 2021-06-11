@@ -63,30 +63,50 @@ function plotScatter(data) {
 
   console.log(xData);
   console.log(yData);
+/////// Adding colors to al of the plots
+  var trace = []
+  var device = []
 
+  for (let i = 0; i < xData.length; i += 1) {
+    if (device.indexOf(yData[i]) === -1) {
+        trace.push({ x: [],
+                     y: [],
+                     mode: 'markers',
+                     name: yData[i],
+                     type:'scatter'
+              
+                    });
+        device.push(yData[i]);
+  } else {
+        trace[device.indexOf(yData[i])].x.push(xData[i]);
+        trace[device.indexOf(yData[i])].y.push(yData[i]);
+  }
+}
+console.log(trace)
+Plotly.newPlot('scatterDiv', trace);
   // Creating Trace
 
-  var trace = {
-    x: xData,
-    y: yData,
-    mode: 'markers',
-    type: 'scatter',
-    text: [''],
-    marker: { size: 5 },
-    color: "size"
-  };
+//   var trace = {
+//     x: xData,
+//     y: yData,
+//     mode: 'markers',
+//     type: 'scatter',
+//     text: [''],
+//     marker: { size: 5 },
+//     color: "size"
+//   };
   
-  var data = [trace];
+//   var data = [trace];
   
-  var layout = {
+//   var layout = {
     
-    title:'Accidents Vs Type of Amusement Park'
-  };
+//     title:'Accidents Vs Type of Amusement Park'
+//   };
   
-  Plotly.newPlot('scatterDiv', data, layout);
-  // Return data to form chart
-  return data;
-}
+//   Plotly.newPlot('scatterDiv', data, layout);
+//   // Return data to form chart
+//   return data;
+ }
 
 function updatePlot(data) {
   var chartData = plotScatter(data);
