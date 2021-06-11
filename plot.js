@@ -15,52 +15,32 @@ console.log("Data Promise: ", dataPromise);
 //PLOTS//
 
 
-/*Accidents/time, Device type/accidents, Business type/accident, name/accidents */
+// /*Accidents/time, Device type/accidents, Business type/accident, name/accidents */
 
-//Barchart
+// //Barchart
 
-// Function to display the plot
-function plotBar(data) {
+// // Function to display the plot
+// function plotBar(data) {
   
-  // Create arrays 
-  var xData = [];
-  var yData = [];
+//   // Create arrays 
+//   var xData = [];
+//   var yData = [];
 
-  var device_type = data[device_type];
+//   var device_type = data[device_type];
 
-  data["accidents"].forEach(function(data){
-    if (data.device_type && data.date){
-    if(data.device_type && data.date){
-      xData.push(data.device_type);
-      yData.push(data.date);
-    }
-  }});
+//   data["accidents"].forEach(function(data){
+//     if (data.device_type && data.bus_type){
+//     if(data.device_type && data.bus_type){
+//       xData.push(data.bus_type);
+//       yData.push(data.device_type);
+//     }
+//   }});
 
-  console.log(xData);
-  console.log(yData);
+//   console.log(xData);
+//   console.log(
 
 
-  // Create a trace using the platform keys and values
-  var trace = {
-      x: xData,
-      y: yData,
-      type: "bar"
-  };
-
-  var chartData = [trace];
-
-  // Return data to form chart
-  return chartData;
-}
-
-function updatePlot(data) {
-  var chartData = plotBar(data);
-
-  // Use `Plotly.react()` to update plot
-  Plotly.react("chartDiv", chartData);
-}
-
-//SCATTER PLOT WITH HOVER TEXT//
+// //SCATTER PLOT WITH HOVER TEXT//
 
 
 function plotScatter(data) {
@@ -68,8 +48,7 @@ function plotScatter(data) {
   // Create arrays 
   var xData = [];
   var yData = [];
-  var device_category = [];
-  var trademarkname_or_generic = [];
+  
 
   var device_type = data[device_type];
   var parseTime = d3.timeParse("%m/%d/%Y");
@@ -78,35 +57,56 @@ function plotScatter(data) {
     if (data.device_type && data.date){
         data.date = parseTime(data.date);
       xData.push(data.date);
-      yData.push(data.bus_type);
+      yData.push(data.device_type);
     }
   });
 
   console.log(xData);
   console.log(yData);
+/////// Adding colors to al of the plots
+  var trace = []
+  var device = []
 
+  for (let i = 0; i < xData.length; i += 1) {
+    if (device.indexOf(yData[i]) === -1) {
+        trace.push({ x: [],
+                     y: [],
+                     mode: 'markers',
+                     name: yData[i],
+                     type:'scatter'
+              
+                    });
+        device.push(yData[i]);
+  } else {
+        trace[device.indexOf(yData[i])].x.push(xData[i]);
+        trace[device.indexOf(yData[i])].y.push(yData[i]);
+  }
+}
+console.log(trace)
+Plotly.newPlot('scatterDiv', trace);
   // Creating Trace
 
-  var trace = {
-    x: xData,
-    y: yData,
-    mode: 'markers',
-    type: 'scatter',
-    text: [''],
-    marker: { size: 5 }
-  };
+//   var trace = {
+//     x: xData,
+//     y: yData,
+//     mode: 'markers',
+//     type: 'scatter',
+//     text: [''],
+//     marker: { size: 5 },
+//     color: "size"
+//   };
   
-  var data = [trace];
+//   var data = [trace];
   
-  var layout = {
+//   var layout = {
     
-    title:'Accidents Vs Type of Amusement Park'
-  };
+//     title:'Accidents Vs Type of Amusement Park'
+//   };
   
-  Plotly.newPlot('scatterDiv', data, layout);
-  // Return data to form chart
-  return chartData;
-}
+//   Plotly.newPlot('scatterDiv', data, layout);
+//   // Return data to form chart
+//   return data;
+ }
 
 function updatePlot(data) {
   var chartData = plotScatter(data);
@@ -115,7 +115,7 @@ function updatePlot(data) {
   Plotly.react("scatterDiv", chartData);
 }
 
-////Bubblechart///
+////Bubblechart/// //Device type ///nno
 
 
 function plotBubble(data) {
@@ -130,9 +130,8 @@ function plotBubble(data) {
   var parseTime = d3.timeParse("%m/%d/%Y");
 
   data["accidents"].forEach(function(data){
-    if (data.device_type && data.date){
-        data.date = parseTime(data.date);
-      xData.push(data.date);
+    if (data.device_type && data.num_injured){
+      xData.push(data.num_injured);
       yData.push(data.bus_type);
     }
   });
@@ -141,8 +140,8 @@ function plotBubble(data) {
   console.log(yData);
 
   var trace1 = {
-    x: [1, 2, 3, 4],
-    y: [10, 11, 12, 13],
+    x: xData,
+    y: yData,
     text: ['A<br>size: 40', 'B<br>size: 60', 'C<br>size: 80', 'D<br>size: 100'],
     mode: 'markers',
     marker: {
@@ -154,21 +153,21 @@ function plotBubble(data) {
   var data = [trace1];
   
   var layout = {
-    title: 'Bubble Chart Hover Text',
+    title: 'Device Type & Number injured',
     showlegend: false,
     height: 600,
     width: 600
   };
   
   Plotly.newPlot('bubbleDiv', data, layout);
+}
 
 // Function to create initial chart
 function init(data) {
-  plotBar(data);
   plotScatter(data);
   plotBubble(data);
 
-}}
+}
 
 // On change to the DOM, call updatePlot()
 d3.selectAll("selDataset").on("change", updatePlot);
