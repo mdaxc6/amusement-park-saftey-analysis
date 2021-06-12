@@ -63,7 +63,7 @@ var baseMaps = {
 // Create our map
 var myMap = L.map("mapid", {
     center: [
-        39.8283, -98.5795
+        37.8283, -98.5795
     ],
     zoom: 5,
     layers: [streetmap]
