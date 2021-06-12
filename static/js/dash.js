@@ -82,6 +82,10 @@ function onEachFeature(feature, layer) {
 
 };
 
+var raidusScale = d3.scaleLinear()
+.domain([1,99])
+.range([5, 25])
+
 function chooseColor(bus_type){
     return bus_type == 'Amusement park' ? '#1F78B4' :
     bus_type == 'Carnival or rental'  ? '#2CA02C' :
@@ -103,7 +107,7 @@ function getBusTypesLayer(geodata) {
         onEachFeature: onEachFeature,
         pointToLayer: function (feature, lnglat) {
             return L.circleMarker(lnglat, {
-                radius: 5,
+                radius: raidusScale(feature.properties.num_injured),
                 fillColor: chooseColor(feature.properties.bus_type),
                 color: "#000",
                 weight: 1,
@@ -134,7 +138,7 @@ function updateMap(geodata) {
     myMap.addLayer(markerLayer);
 }
 
-function plotScatter(data) {
+function plotScatterBusType(data) {
     // Create arrays 
     var xData = [];
     var yData = [];
@@ -182,7 +186,7 @@ function plotScatter(data) {
     Plotly.newPlot('scatter2', trace, layout);
 }
 
-function plotScatterDeviceType(data) {
+function plotScatterBusTypeDeviceType(data) {
     // Create arrays 
     var xData = [];
     var yData = [];
@@ -197,25 +201,31 @@ function plotScatterDeviceType(data) {
     });
 
     /////// Adding colors to al of the plots
-    var trace = []
-    var device = []
+    var trace = [{
+        x: xData,
+        y: yData,
+        mode: "markers",
+        type: "scatter"
+    }]
 
-    for (let i = 0; i < xData.length; i += 1) {
-        if (device.indexOf(yData[i]) === -1) {
-            trace.push({
-                x: [],
-                y: [],
-                mode: 'markers',
-                name: yData[i],
-                type: 'scatter'
+    // var device = []
 
-            });
-            device.push(yData[i]);
-        } else {
-            trace[device.indexOf(yData[i])].x.push(xData[i]);
-            trace[device.indexOf(yData[i])].y.push(yData[i]);
-        }
-    }
+    // for (let i = 0; i < xData.length; i += 1) {
+    //     if (device.indexOf(yData[i]) === -1) {
+    //         trace.push({
+    //             x: [],
+    //             y: [],
+    //             mode: 'markers',
+    //             name: yData[i],
+    //             type: 'scatter'
+
+    //         });
+    //         device.push(yData[i]);
+    //     } else {
+    //         trace[device.indexOf(yData[i])].x.push(xData[i]);
+    //         trace[device.indexOf(yData[i])].y.push(yData[i]);
+    //     }
+    // }
 
     var layout = {
         title: 'Device Type Where Injuries Occured by Business Type',
@@ -271,8 +281,8 @@ function mapInit(geodata) {
 }
 
 function plotInit(data) {
-    plotScatter(data);
-    plotScatterDeviceType(data);
+    plotScatterBusType(data);
+    plotScatterBusTypeDeviceType(data);
     plotBar(data);
 }
 
@@ -282,6 +292,6 @@ function optionChanged() {
     d3.json(city_url).then(function (response) {
         mapInit(response.features);
     });
-    d3.json(api_url).then(data => plotScatterDeviceType(data))
+    d3.json(api_url).then(data => plotScatterBusTypeDeviceType(data))
     
 }
