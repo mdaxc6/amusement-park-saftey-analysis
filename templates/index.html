@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Amusement Park Accidents</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="../static/css/dash.css">
+</head>
+
+<body>
+  <div class="page-wrap">
+  <div class="wrapper">
+    <nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        <a class="navbar-brand" href="https://www.kaggle.com/stevenlasch/roller-coaster-accidents?select=Saferparks-dataset-legacy-v2.csv"> Data Source</a>
+        </div>    
+  </div>
+    </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <h1 style="font-size:60px;font-weight:bold;color:rgba(236, 115, 2, 0.7);">Amusement Park Accidents in the U.S. (1989-2009)</h1>
+        <p style="font-size:20px;font-weight:bold;color:rgb(252, 252, 252);">Use the interactive charts below to explore the dataset</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="well">
+          <h5 style="font-size:15px;font-weight:bold;color:rgba(26, 30, 247, 0.7);">Business Type</h5>
+          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div id="mapid"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="scatter"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="scatter2"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  <footer class="footer">
+    <span class="bottom" style="font-size:20px;font-weight:bold;color:rgba(248, 179, 52, 0.7);">
+        Mike Absher, Jordan Wright, & Nina Paljakka-Cargo
+    </span>
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+  integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+  crossorigin=""></script>
+  
+  <!-- D3 JavaScript -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <!-- API key -->
+  <script type="text/javascript" src="../static/js/config.js"></script>
+  <!-- Our JavaScript -->
+  <!-- <script type="text/javascript" src="../js/map.js"></script> -->
+  <script type="text/javascript" src="../static/js/dash.js"></script>
+  <!-- Plotly script -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!--Easter Egg JS Library. . .for fun-->
+  <script src="https://rawgit.com/WeiChiaChang/Easter-egg/master/easter-eggs-collection.js"></script>
+
+
+</body>
+
+
+
+</html>

@@ -5,7 +5,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 
-from flask import Flask, jsonify
+from flask import Flask, render_template, jsonify
 from flask_cors import CORS
 
 #################################################
@@ -37,12 +37,7 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 @app.route("/")
 def index():
     """List all available api routes."""
-    return (
-        f"Available Routes:<br/>"
-        f"<a href='/api/v1.0/all_accidents'>All Accidents</a><br/>"
-        f"<a href='/api/v1.0/accident_location_state'>Accident Location by State</a><br/>"
-        f"<a href='/api/v1.0/accident_location_city'>Accident Location by City</a><br/>"
-    )
+    return render_template("index.html")
 
 
 @app.route("/api/v1.0/all_accidents")

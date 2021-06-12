@@ -5,6 +5,7 @@ var bus_types = []
 var markerLayer = null
 // Perform a GET request to the query URLs
 d3.json(api_url).then(function (data) {
+    console.log(data)
     data.accidents.forEach(accident => bus_types.push(accident.bus_type));
     // populate the select feilds with each unique business types
     d3.select("#selDataset").selectAll("option")
