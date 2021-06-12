@@ -53,7 +53,7 @@ html, body {
     margin-top: 50px;
 }
 
-#scatter {
+#scatter, #scatter2 {
     margin: 50px;
     display: flex;
     align-items: center;

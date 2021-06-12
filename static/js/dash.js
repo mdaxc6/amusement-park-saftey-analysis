@@ -139,8 +139,6 @@ function plotScatter(data) {
     var xData = [];
     var yData = [];
 
-
-    var bus_type = data[bus_type];
     var parseTime = d3.timeParse("%m/%d/%Y");
 
     data["accidents"].forEach(function (data) {
@@ -173,11 +171,60 @@ function plotScatter(data) {
     }
 
     var layout = {
-        title: 'Number of Incidents over Time',
+        title: 'Number of Incidents over Time per Business Type',
         showlegend: false,
         margin: {
             l: 200,
             b: 100
+        }
+    };
+
+    Plotly.newPlot('scatter2', trace, layout);
+}
+
+function plotScatterDeviceType(data) {
+    // Create arrays 
+    var xData = [];
+    var yData = [];
+
+    var filtered = filterData(data);
+
+    filtered.forEach(function (data) {
+        if (data.bus_type && data.num_injured < 80) {
+            xData.push(data.device_type);
+            yData.push(data.num_injured);
+        }
+    });
+
+    /////// Adding colors to al of the plots
+    var trace = []
+    var device = []
+
+    for (let i = 0; i < xData.length; i += 1) {
+        if (device.indexOf(yData[i]) === -1) {
+            trace.push({
+                x: [],
+                y: [],
+                mode: 'markers',
+                name: yData[i],
+                type: 'scatter'
+
+            });
+            device.push(yData[i]);
+        } else {
+            trace[device.indexOf(yData[i])].x.push(xData[i]);
+            trace[device.indexOf(yData[i])].y.push(yData[i]);
+        }
+    }
+
+    var layout = {
+        title: 'Device Type Where Injuries Occured by Business Type',
+        showlegend: false,
+        margin: {
+            b: 200
+        },
+        xaxis: {
+            tickangle: 45
         }
     };
 
@@ -206,7 +253,7 @@ function plotBar(data) {
     var data = [trace1];
 
     var layout = {
-        title: 'Device Type & Number injured',
+        title: 'Business Type & Number injured',
         showlegend: false,
         height: 600,
         width: 600,
@@ -225,15 +272,16 @@ function mapInit(geodata) {
 
 function plotInit(data) {
     plotScatter(data);
+    plotScatterDeviceType(data);
     plotBar(data);
 }
 
 
 
 function optionChanged() {
-    var bus_type = d3.select("#selDataset").property("value");
     d3.json(city_url).then(function (response) {
         mapInit(response.features);
     });
-
+    d3.json(api_url).then(data => plotScatterDeviceType(data))
+    
 }
