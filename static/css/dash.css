@@ -20,7 +20,7 @@ html, body {
 }
 
 .jumbotron {
-    background-image: url(../images/coaster.jpg);
+    background-image: url(../static/images/coaster.jpg);
 }
 
 .wrapper {
