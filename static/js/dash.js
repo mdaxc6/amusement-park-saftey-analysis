@@ -190,7 +190,7 @@ function plotScatterBusTypeDeviceType(data) {
     // Create arrays 
     var xData = [];
     var yData = [];
-
+    var selected_bus_type = d3.select("#selDataset").property("value");
     var filtered = filterData(data);
 
     filtered.forEach(function (data) {
@@ -208,27 +208,8 @@ function plotScatterBusTypeDeviceType(data) {
         type: "scatter"
     }]
 
-    // var device = []
-
-    // for (let i = 0; i < xData.length; i += 1) {
-    //     if (device.indexOf(yData[i]) === -1) {
-    //         trace.push({
-    //             x: [],
-    //             y: [],
-    //             mode: 'markers',
-    //             name: yData[i],
-    //             type: 'scatter'
-
-    //         });
-    //         device.push(yData[i]);
-    //     } else {
-    //         trace[device.indexOf(yData[i])].x.push(xData[i]);
-    //         trace[device.indexOf(yData[i])].y.push(yData[i]);
-    //     }
-    // }
-
     var layout = {
-        title: 'Device Type Where Injuries Occured by Business Type',
+        title: `Injuries per Device Type at ${selected_bus_type}s`,
         showlegend: false,
         margin: {
             b: 200
