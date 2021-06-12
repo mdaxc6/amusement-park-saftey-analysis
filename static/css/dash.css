@@ -20,7 +20,7 @@ html, body {
 }
 
 .jumbotron {
-    background-image: url(../static/images/coaster.jpg);
+    background-image: url(/static/images/coaster.jpg);
 }
 
 .wrapper {
@@ -61,6 +61,8 @@ html, body {
 
 #bar {
     margin: 50px;
+    display: flex;
+    align-items: center;
 }
 
 
