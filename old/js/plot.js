@@ -17,27 +17,41 @@ console.log("Data Promise: ", dataPromise);
 
 // /*Accidents/time, Device type/accidents, Business type/accident, name/accidents */
 
-// //Barchart
+//Barchart
 
-// // Function to display the plot
-// function plotBar(data) {
+// Function to display the plot
+function plotBar(data) {
   
-//   // Create arrays 
-//   var xData = [];
-//   var yData = [];
+  // Create arrays 
+  var xData = [];
+  var yData = [];
 
-//   var device_type = data[device_type];
+  var device_type = data[device_type];
+  var parseTime = d3.timeParse("%m/%d/%Y");
 
-//   data["accidents"].forEach(function(data){
-//     if (data.device_type && data.bus_type){
-//     if(data.device_type && data.bus_type){
-//       xData.push(data.bus_type);
-//       yData.push(data.device_type);
-//     }
-//   }});
+  data["accidents"].forEach(function(data){
+    if (data.bus_type && data.date){
+      xData.push(data.date)
+      yData.push(data.bus_type);
+    }
+  });
 
-//   console.log(xData);
-//   console.log(
+  console.log(xData);
+  console.log(yData);
+
+  var trace1 = {
+    x: xData,
+    y: yData,
+    type: 'bar'
+  };
+  
+  
+  var data = [trace1];
+  
+  var layout = {barmode: 'group'};
+  
+  Plotly.newPlot('chartDiv', data, layout);
+}
 
 
 // //SCATTER PLOT WITH HOVER TEXT//
@@ -73,7 +87,8 @@ function plotScatter(data) {
                      y: [],
                      mode: 'markers',
                      name: yData[i],
-                     type:'scatter'
+                     type:'scatter',
+                     title: 'Ride type and injries'
               
                     });
         device.push(yData[i]);
@@ -84,6 +99,9 @@ function plotScatter(data) {
 }
 console.log(trace)
 Plotly.newPlot('scatterDiv', trace);
+
+
+};
   // Creating Trace
 
 //   var trace = {
@@ -106,7 +124,7 @@ Plotly.newPlot('scatterDiv', trace);
 //   Plotly.newPlot('scatterDiv', data, layout);
 //   // Return data to form chart
 //   return data;
- }
+ //}
 
 function updatePlot(data) {
   var chartData = plotScatter(data);
@@ -118,54 +136,55 @@ function updatePlot(data) {
 ////Bubblechart/// //Device type ///nno
 
 
-function plotBubble(data) {
+// function plotBubble(data) {
   
-  // Create arrays 
-  var xData = [];
-  var yData = [];
-  var device_category = [];
-  var trademarkname_or_generic = [];
+//   // Create arrays 
+//   var xData = [];
+//   var yData = [];
+//   var device_category = [];
+//   var trademarkname_or_generic = [];
 
-  var device_type = data[device_type];
-  var parseTime = d3.timeParse("%m/%d/%Y");
+//   var device_type = data[device_type];
+//   var parseTime = d3.timeParse("%m/%d/%Y");
 
-  data["accidents"].forEach(function(data){
-    if (data.device_type && data.num_injured){
-      xData.push(data.num_injured);
-      yData.push(data.bus_type);
-    }
-  });
+//   data["accidents"].forEach(function(data){
+//     if (data.device_type && data.num_injured){
+//       xData.push(data.num_injured);
+//       yData.push(data.bus_type);
+//     }
+//   });
 
-  console.log(xData);
-  console.log(yData);
+//   console.log(xData);
+//   console.log(yData);
 
-  var trace1 = {
-    x: xData,
-    y: yData,
-    text: ['A<br>size: 40', 'B<br>size: 60', 'C<br>size: 80', 'D<br>size: 100'],
-    mode: 'markers',
-    marker: {
-      color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
-      size: [40, 60, 80, 100]
-    }
-  };
+//   var trace1 = {
+//     x: xData,
+//     y: yData,
+//     text: [''],
+//     mode: 'markers',
+//     marker: {
+//       color: ['rgb(93, 164, 214)'],
+//       size: [20,40,60]
+//     }
+//   };
   
-  var data = [trace1];
+//   var data = [trace1];
   
-  var layout = {
-    title: 'Device Type & Number injured',
-    showlegend: false,
-    height: 600,
-    width: 600
-  };
+//   var layout = {
+//     title: 'Event type & Number injured',
+//     showlegend: false,
+//     height: 600,
+//     width: 600
+//   };
   
-  Plotly.newPlot('bubbleDiv', data, layout);
-}
+//   Plotly.newPlot('bubbleDiv', data, layout);
+// }
 
 // Function to create initial chart
 function init(data) {
+  plotBar(data);
   plotScatter(data);
-  plotBubble(data);
+ 
 
 }
 
