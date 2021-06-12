@@ -24,7 +24,7 @@
     <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-        <a class="navbar-brand" href="https://www.kaggle.com/stevenlasch/roller-coaster-accidents?select=Saferparks-dataset-legacy-v2.csv"> Data Source</a>
+        <a class="navbar-brand" href="">Park Accidents API</a>
         </div>    
   </div>
     </nav>
@@ -37,13 +37,13 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-2">
         <div class="well">
           <h5 style="font-size:15px;font-weight:bold;color:rgba(26, 30, 247, 0.7);">Business Type</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
       </div>
-      <div class="col-md-9">
+      <div class="col-md-10">
         <div id="mapid"></div>
       </div>
     </div>
@@ -57,10 +57,25 @@
         <div id="scatter2"></div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
+    <div class="row" id="bar-and-desc">
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
         <div id="bar"></div>
       </div>
+      <div class="col-md-4">
+        <h3>About This Page:</h3>
+        <p class="data-desc">The data used in creation of this page originated on Kaggle.com. 
+          and included thorough details on accidents reported at different types of amusement businesses in the United States from the year 1986 to 2009. 
+          Above you can find an interactive map which allows you to search through the different types of businesses.
+          Click on the dots on the map to view the location, date and details on the accidents reported. 
+          These details include ride type, number injured, and injury description. 
+          The map filtering tool also filters the corresponding scatter plot which shows the number of injuries on different rides at your selected business type. 
+          There is a scatter plot which summarizes the incident occurrences at each business type from the years 1986 to 2009. 
+          The bar graph summarizes the total number of injuries reported at each business type from the years 1986 to 2009.
+        </p>
+        <a class="data-desc" href="https://www.kaggle.com/stevenlasch/roller-coaster-accidents?select=Saferparks-dataset-legacy-v2.csv">Data Source.</a>
+      </div>
+      <div class="col-md-2"></div>
     </div>
   </div>
 </div>

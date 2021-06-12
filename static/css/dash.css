@@ -48,24 +48,36 @@ html, body {
     margin-top: 50px;
 }
 #mapid {
-    height: 450px;
+    height: 750px;
     /* width: 900px; */
     margin-top: 50px;
 }
 
 #scatter, #scatter2 {
-    margin: 50px;
+    margin: 150px;
     display: flex;
     align-items: center;
 }
 
 #bar {
     margin: 50px;
+    margin-right: 50px;
     display: flex;
     align-items: center;
 }
-
-
+#bar-and-desc{
+    margin-top: 150px;
+    display: flex;
+    align-items: center;
+}
+.data-desc{
+    margin: 50px;
+    margin-top: 50px;
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+    line-height: 200%;
+}
 .info {
     padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
