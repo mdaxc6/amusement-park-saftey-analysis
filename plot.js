@@ -30,8 +30,8 @@ function plotBar(data) {
   var parseTime = d3.timeParse("%m/%d/%Y");
 
   data["accidents"].forEach(function(data){
-    if (data.device_type && data.num_injured){
-      xData.push(data.num_injured);
+    if (data.bus_type && data.date){
+      xData.push(data.date)
       yData.push(data.bus_type);
     }
   });
