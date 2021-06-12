@@ -1,0 +1,91 @@
+* {
+    box-sizing: border-box;
+    font-family: Ubuntu, sans-serif;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+.page-wrap{
+    min-height: 100%;
+
+    margin-bottom: -40px;
+}
+
+.page-wrap:after{
+    display: block;
+}
+
+.jumbotron {
+    background-image: url('../../Images/coaster.jpg');
+}
+
+.wrapper {
+    position: relative;
+    min-height: 100%;
+    padding-bottom: 130px;
+    overflow: auto;
+}
+
+
+.col-md-12 {
+    position: relative;
+    height: 400px;
+    padding: 20px;
+    margin: 0;
+}
+
+.h1 {
+    margin-top: 200px;
+    font-size: 0.1rem;
+    animation: title 1.2s forwards linear;
+}
+
+.well{
+    margin-top: 50px;
+}
+#mapid {
+    height: 450px;
+    /* width: 900px; */
+    margin-top: 50px;
+}
+
+#scatter, #scatter2 {
+    margin: 50px;
+    display: flex;
+    align-items: center;
+}
+
+#bar {
+    margin: 50px;
+}
+
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+
+.footer, .page-wrap:after {
+    height: 40px;
+    /* min-height: 100px; */
+    background: #94c5f5;
+}
+
+.bottom {
+    padding: 2px;   
+    background: #1b3146;
+}
