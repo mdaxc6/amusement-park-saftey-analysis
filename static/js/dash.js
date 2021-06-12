@@ -176,7 +176,7 @@ function plotScatterBusType(data) {
     }
 
     var layout = {
-        title: 'Number of Incidents over Time per Business Type',
+        title: 'Number of Incidents per Business Type, 1986-2009',
         showlegend: false,
         margin: {
             l: 200,
@@ -194,14 +194,17 @@ function plotScatterBusTypeDeviceType(data) {
     var selected_bus_type = d3.select("#selDataset").property("value");
     var filtered = filterData(data);
 
+
     filtered.forEach(function (data) {
         if (data.bus_type && data.num_injured < 80) {
             xData.push(data.device_type);
             yData.push(data.num_injured);
+
         }
     });
 
-    /////// Adding colors to al of the plots
+
+    /////// Adding colors to all of the plots
     var trace = [{
         x: xData,
         y: yData,
@@ -210,7 +213,7 @@ function plotScatterBusTypeDeviceType(data) {
     }]
 
     var layout = {
-        title: `Injuries per Device Type at ${selected_bus_type}s`,
+        title: `Number of Injuries per Ride Type at ${selected_bus_type}s`,
         showlegend: false,
         margin: {
             b: 200
@@ -245,7 +248,7 @@ function plotBar(data) {
     var data = [trace1];
 
     var layout = {
-        title: 'Business Type & Number injured',
+        title: 'Business Type & Total Number Injured from 1986-2009',
         showlegend: false,
         height: 600,
         width: 600,
