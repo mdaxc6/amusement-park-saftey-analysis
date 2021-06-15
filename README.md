@@ -15,3 +15,34 @@ Project Proposal
 -Jordan: JS/plotly --> plots
 
 -Nina: HTML/CSS, JS 
+
+
+Background Work
+
+ETL
+Used Python and Pandas to format and prepare the data.
+State Abbr -> Full Names
+Used Google geocode API to add location info to the dataset.
+Used Pandas to create sqlite database containing info.
+
+SQLite and Flask-API
+Created Flask app with 3 routes
+All Accident Data
+Accident Data by State
+Accident Data by City
+We utilized SQLAlchemy to pull data from the database, and jsonify to return a JSON format.
+The main dashboard is rendered in flask via a render template.
+
+Heroku
+The flask app was pushed to Heroku with automatic deploy
+
+
+
+
+Using Plotly to Plot Visualizations
+
+![heatmap](Images/image.png)
+
+
+
+HTML
