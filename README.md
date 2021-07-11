@@ -11,12 +11,6 @@ Project Proposal
 - Visualization plans: Leaflet map, injury category v. Manufacturer,  ride category/type v. number injured v. manufacturer v. business type, date v. number injured (saftey of coasters over time) 
 - GitHub Repo: https://github.com/mdaxc6/databootcamp_project_2
 
--Mike: ETL, sqlite + flask, heroku, leaflet map
-
--Jordan: JS/plotly --> plots
-
--Nina: HTML/CSS, JS 
-
 
 Background Work
 
@@ -36,7 +30,7 @@ The main dashboard is rendered in flask via a render template.
 
 Heroku
 The flask app was pushed to Heroku with automatic deploy
-
+https://park-accidents-api.herokuapp.com/
 
 
 
