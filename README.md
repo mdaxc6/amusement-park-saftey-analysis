@@ -1,4 +1,5 @@
-# Amusement Park Ride Safety Analysis (Project 2)
+# Amusement Park Ride Safety Analysis
+
 
 ![rollercoaster](https://media.giphy.com/media/JVCPcgZTYuw1i/giphy.gif) 
 
