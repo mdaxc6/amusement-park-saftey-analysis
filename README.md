@@ -12,7 +12,7 @@ Project Proposal
 - GitHub Repo: https://github.com/mdaxc6/databootcamp_project_2
 
 
-Background Work
+## Background Work
 
 ETL
 Used Python and Pandas to format and prepare the data.
